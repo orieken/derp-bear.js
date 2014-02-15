@@ -1,0 +1,14 @@
+{
+    "name": "derp-bearjs",
+    "description": "Tests for Derp-Bear.herokuapp.com using mocha and cucumberjs",
+    "author": "Oscar Rieken <oriekenjr@gmail.com>",
+    "version": "0.0.1",
+    "devDependencies": {
+        "cucumber": "0.3.3",
+        "selenium-webdriver": "2.39.0",
+        "should": "3.1.2"
+    },
+    "engines": {
+        "node": "0.10.25"
+    }
+}

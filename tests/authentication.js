@@ -28,9 +28,12 @@ describe('Derp-Bear', function(){
 
        it('lets me log in with a valid user', function(done){
            driver.findElement(webDriver.By.id('login_link')).click();
+           driver.findElement(webDriver.By.id('username')).sendKeys('Bond');
+           driver.findElement(webDriver.By.id('password')).sendKeys('007');
+           driver.findElement(webDriver.By.id('submit')).click();
            driver.wait(function () {
                return driver.getTitle().then(function (title) {
-                   (title).should.equal("WOAH SUPER SECRET LOGIN PAGE!!!!!");
+                   (title).should.equal("Basic Form Example");
                    done();
                });
            }, 5000);

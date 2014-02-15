@@ -35,7 +35,7 @@ describe('Derp-Bear', function(){
            }, 5000);
        });
 
-       it('lets me log in with a valid user', function(done){
+       it('shows me as logged in', function(done){
            valid_user = FactoryGirl.create('validUser');
 
            driver.findElement(webDriver.By.id('login_link')).click();
@@ -43,12 +43,11 @@ describe('Derp-Bear', function(){
            driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
            driver.findElement(webDriver.By.id('submit')).click();
            driver.wait(function () {
-               return driver.getTitle().then(function (title) {
-                   (title).should.equal("Basic Form Example");
+               return driver.findElement(webDriver.By.className('flash')).getText().then(function (notice) {
+                   (notice).should.equal("You are now Logged in.");
                    done();
                });
            }, 5000);
-
        });
    }) ;
 });

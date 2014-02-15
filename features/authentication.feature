@@ -6,8 +6,8 @@ Feature: Logging into Derp Bear
 
 
   Scenario: Valid user login
-    When I login as a "valid"
-    Then I should see the logged in message
+    When I login as a valid user
+    Then I should see that I am logged in
 
 
 #  Scenario: Invalid user login

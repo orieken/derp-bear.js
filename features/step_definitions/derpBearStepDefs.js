@@ -36,7 +36,8 @@ var derpBearStepDefs = function () {
         driver.findElement(webDriver.By.id('login_link')).click();
         driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
         driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
-        driver.findElement(webDriver.By.id('submit')).click().then(callback);
+        driver.findElement(webDriver.By.id('submit')).click();
+        callback();
 
     });
 

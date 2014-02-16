@@ -13,10 +13,12 @@ FactoryGirl.define('validUser', function () {
 
 
 var derpBearStepDefs = function () {
-    var driver = new webDriver.Builder()
-        .withCapabilities(webDriver.Capabilities.chrome()).
-        build();
     this.World = require('../support/world.js').World;
+
+    var driver = new webDriver.Builder().
+        withCapabilities(webDriver.Capabilities.chrome()).
+        build();
+
 
     //trying out hooks
     this.Before(function (callback) {
@@ -25,8 +27,7 @@ var derpBearStepDefs = function () {
     });
 
     this.After(function (callback) {
-        driver.quit();
-        callback();
+        driver.quit().then(callback);
     });
 
     //actual step definitions

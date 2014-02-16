@@ -8,10 +8,18 @@ FactoryGirl.define('validUser', function () {
     this.passWord = '007';
     this.firstName = 'James';
     this.lastName = 'Bond';
+    this.emailAddress = 'james.bond@example.com';
+    this.websiteUrl = 'www.example.com';
+    this.pet = 'Snake';
+    this.dob = '01/01/1971';
+    this.sex = 'Male';
+    this.work = 'Car';
+    this.freeText = "hi"
 });
 
 
 describe('Derp-Bear', function () {
+
     beforeEach(function (done) {
         driver = new webDriver.Builder().withCapabilities(webDriver.Capabilities.chrome()).build();
         driver.get('http://derp-bear.herokuapp.com');
@@ -24,6 +32,7 @@ describe('Derp-Bear', function () {
     });
 
     describe('authentication', function () {
+        var valid_user = FactoryGirl.create('validUser');
         this.timeout(60000);
 
         it('is in the right place', function (done) {
@@ -36,7 +45,7 @@ describe('Derp-Bear', function () {
         });
 
         it('shows me as logged in', function (done) {
-            valid_user = FactoryGirl.create('validUser');
+
 
             driver.findElement(webDriver.By.id('login_link')).click();
             driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
@@ -49,5 +58,20 @@ describe('Derp-Bear', function () {
                 });
             }, 5000);
         });
+
+        it('submit form after login', function(done){
+            driver.findElement(webDriver.By.id('login_link')).click();
+            driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
+            driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
+            driver.findElement(webDriver.By.id('submit')).click();
+            driver.wait(function () {
+                driver.findElement(webDriver.By.id('first_name')).sendKeys(valid_user.firstName);
+                driver.findElement(webDriver.By.id('last_name')).sendKeys(valid_user.lastName);
+                driver.findElement(webDriver.By.id('email')).sendKeys(valid_user.emailAddress);
+                driver.findElement(webDriver.By.id('website_url')).sendKeys(valid_user.websiteUrl);
+//                driver.findElement(webDriver.By.id('pet_select')).select(valid_user.pet);
+                done();
+            }, 5000);
+        })
     });
 });

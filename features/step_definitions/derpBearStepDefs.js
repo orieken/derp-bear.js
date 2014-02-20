@@ -27,7 +27,9 @@ var derpBearStepDefs = function () {
     });
 
     this.After(function (callback) {
-        driver.quit().then(callback);
+        driver.quit().then(function(){
+            callback();
+        });
     });
 
     //actual step definitions
@@ -36,8 +38,9 @@ var derpBearStepDefs = function () {
         driver.findElement(webDriver.By.id('login_link')).click();
         driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
         driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
-        driver.findElement(webDriver.By.id('submit')).click();
+        driver.findElement(webDriver.By.id('submit')).click().then(function(){
         callback();
+        });
 
     });
 
@@ -52,7 +55,9 @@ var derpBearStepDefs = function () {
         driver.wait(function () {
             return driver.findElement(webDriver.By.css('.flash')).getText().then(function (elementText) {
                 (elementText).should.equal("You are now Logged in.");
-            }).then(callback);
+            }).then(function(){
+                    callback();
+                });
         }, 5000);
 
     });

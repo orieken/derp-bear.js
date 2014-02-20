@@ -1,7 +1,9 @@
 var should = require('../node_modules/should');
 var webDriver = require('../node_modules/selenium-webdriver');
-var FactoryGirl = require('factory_girl');
+var casual = require('casual');
 var driver;
+
+var FactoryGirl = require('../node_modules/factory_girl');
 
 FactoryGirl.define('validUser', function () {
     this.userName = 'Bond';
@@ -14,8 +16,10 @@ FactoryGirl.define('validUser', function () {
     this.dob = '01/01/1971';
     this.sex = 'male';
     this.work = 'car';
-    this.freeText = "hi"
+    this.freeText = casual.short_description
 });
+
+
 
 
 describe('Derp-Bear', function () {

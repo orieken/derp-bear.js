@@ -20,8 +20,6 @@ FactoryGirl.define('validUser', function () {
 });
 
 
-
-
 describe('Derp-Bear', function () {
 
     beforeEach(function (done) {
@@ -31,41 +29,41 @@ describe('Derp-Bear', function () {
     });
 
     afterEach(function (done) {
-        driver.quit().then(function(){
+        driver.quit().then(function () {
             done();
         });
     });
 
     describe('authentication', function () {
         var valid_user = FactoryGirl.create('validUser');
-        this.timeout(60000);
+        this.timeout(120000);
 
         it('is in the right place', function (done) {
             driver.wait(function () {
                 return driver.getTitle().then(function (title) {
                     (title).should.equal("Welcome to Derp-Bear");
-                }).then(function(){
+                }).then(function () {
                         done();
                     });
             }, 5000);
         });
 
         it('shows me as logged in', function (done) {
-            driver.findElement(webDriver.By.id('login_link')).click();
-            driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
-            driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
-            driver.findElement(webDriver.By.id('submit')).click();
-            driver.wait(function () {
-                return driver.findElement(webDriver.By.className('flash')).getText().then(function (notice) {
-                    (notice).should.equal("You are now Logged in.");
-
-                }).then(function(){
-                        done();
-                    });
-            }, 5000);
+            driver.findElement(webDriver.By.id('login_link')).click().then(function () {
+                driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
+                driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
+                driver.findElement(webDriver.By.id('submit')).click();
+                driver.wait(function () {
+                    return driver.findElement(webDriver.By.className('flash')).getText().then(function (notice) {
+                        (notice).should.equal("You are now Logged in.");
+                    }).then(function () {
+                            done();
+                        });
+                }, 5000);
+            });
         });
 
-        it('submit form after login', function(done){
+        it('submit form after login', function (done) {
             driver.findElement(webDriver.By.id('login_link')).click();
             driver.findElement(webDriver.By.id('username')).sendKeys(valid_user.userName);
             driver.findElement(webDriver.By.id('password')).sendKeys(valid_user.passWord);
@@ -75,21 +73,24 @@ describe('Derp-Bear', function () {
                 driver.findElement(webDriver.By.id('last_name')).sendKeys(valid_user.lastName);
                 driver.findElement(webDriver.By.id('email')).sendKeys(valid_user.emailAddress);
                 driver.findElement(webDriver.By.id('website_url')).sendKeys(valid_user.websiteUrl);
-                driver.findElement(webDriver.By.tagName('button')).click().then(function(){
+                driver.findElement(webDriver.By.tagName('button')).click().then(function () {
                     driver.findElement(webDriver.By.linkText(valid_user.pet)).click();
 
                 });
-                driver.findElement(webDriver.By.id('date_of_birth')).sendKeys(valid_user.dob).then(function(wdElement){
-
-                });
-//                driver.findElement(webDriver.By.id(valid_user.sex)).click();
-//                driver.findElement(webDriver.By.id(valid_user.work)).click();
+                driver.findElement(webDriver.By.id('date_of_birth')).sendKeys(valid_user.dob);
+                driver.findElement(webDriver.By.css('label[for=' + valid_user.sex + ']')).click();
+                driver.findElement(webDriver.By.css('label[for=' + valid_user.work + ']')).click();
                 driver.findElement(webDriver.By.id('free_text_area')).sendKeys(valid_user.freeText);
-
-                driver.findElement(webDriver.By.id('submit_button')).click().then(function(){
-                    done();
+                driver.findElement(webDriver.By.id('submit_button')).click().then(function () {
+                    driver.wait(function () {
+                        return driver.findElement(webDriver.By.tagName('h1')).getText().then(function (successMessage) {
+                            (successMessage).should.equal('Thank you for submitting the form');
+                        }).then(function () {
+                                done();
+                            });
+                    }, 5000);
                 });
-            }, 5000);
-        })
+            }, 10000);
+        });
     });
 });

@@ -5,7 +5,7 @@
     "version": "0.0.1",
     "devDependencies": {
         "cucumber": "0.3.3",
-        "selenium-webdriver": "2.39.0",
+        "selenium-webdriver": "2.40.0",
         "should": "3.1.2"
     },
     "engines": {

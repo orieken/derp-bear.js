@@ -10,15 +10,10 @@ Feature: Logging into Derp Bear
     Then I should see that I am logged in
 
 
-#  Scenario: Invalid user login
-#    Given I visit derpbear
-#    When I login
-#    Then I should see the logged in message
-
-#  Scenario: Valid user login other example
-#    Given I visit derpbear
-#    When I login
-#    Then I should see "You are now Logged in."
+  Scenario: Successfully submit form after login
+  Given I login as a valid user
+  When I submit the basic form example
+  Then I should see the thank you message
 
 
 #  Scenario: Invalid user login other example

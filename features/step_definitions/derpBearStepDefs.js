@@ -1,29 +1,40 @@
-var webDriver = require('../../node_modules/selenium-webdriver');
-var FactoryGirl = require('factory_girl');
-
 var should = require('../../node_modules/should');
 var webDriver = require('../../node_modules/selenium-webdriver');
+var driver;
+
+var casual = require('../../node_modules/casual');
+var FactoryGirl = require('../../node_modules/factory_girl');
+
 
 FactoryGirl.define('validUser', function () {
     this.userName = 'Bond';
     this.passWord = '007';
     this.firstName = 'James';
     this.lastName = 'Bond';
+    this.emailAddress = 'james.bond@example.com';
+    this.websiteUrl = 'http://www.example.com';
+    this.pet = 'Snake';
+    this.dob = '01/01/1971';
+    this.sex = 'male';
+    this.work = 'car';
+    this.freeText = casual.short_description
 });
 
 
 var derpBearStepDefs = function () {
     this.World = require('../support/world.js').World;
 
-    var driver = new webDriver.Builder().
-        withCapabilities(webDriver.Capabilities.chrome()).
-        build();
+// need to move this into hooks.js
 
 
     //trying out hooks
     this.Before(function (callback) {
-        driver.get('http://derp-bear.herokuapp.com');
+        driver = new webDriver.Builder().
+            withCapabilities(webDriver.Capabilities.chrome()).
+            build();
+        driver.get('http://derp-bear.herokuapp.com').then(function (){
         callback();
+        });
     });
 
     this.After(function (callback) {
@@ -43,13 +54,6 @@ var derpBearStepDefs = function () {
         });
 
     });
-
-//        this.driver.wait(function () {
-//            return this.driver.findElement(webDriver.By.css('.flash')).textContent.then(function (notice) {
-//                console.log(notice);
-//                callback();
-//            });
-//        }, 5000);
 
     this.Then(/^I should see that I am logged in$/, function (callback) {
         driver.wait(function () {

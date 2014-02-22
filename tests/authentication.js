@@ -1,8 +1,8 @@
 var should = require('../node_modules/should');
 var webDriver = require('../node_modules/selenium-webdriver');
-var casual = require('casual');
 var driver;
 
+var casual = require('casual');
 var FactoryGirl = require('../node_modules/factory_girl');
 
 FactoryGirl.define('validUser', function () {

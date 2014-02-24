@@ -9,7 +9,6 @@ Feature: Logging into Derp Bear
     When I login as a valid user
     Then I should see that I am logged in
 
-
   Scenario: Successfully submit form after login
   Given I login as a valid user
   When I submit the basic form example

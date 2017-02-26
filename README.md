@@ -13,7 +13,7 @@ to run:
 make test
 ```
 
-[mocha site](http://visionmedia.github.io/mocha/)
+[mocha site](http://mochajs.org/)
 
 ## and 
 
